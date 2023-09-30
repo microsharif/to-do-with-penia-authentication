@@ -229,3 +229,12 @@ input:checked ~ .bubble::after {
 	text-decoration: line-through;
 	color: var(--grey);
 }
+
+.todo-status{
+	margin-right: 15px;
+}
+
+.todo-warning{
+	color: red;
+	font-size: 16px;
+}

@@ -1,7 +1,9 @@
 <script setup>
-import {ref,reactive} from 'vue';
+import {ref,reactive,onMounted} from 'vue';
 import todoStore from '../store/todoStore';
 const todoPstore = todoStore();
+
+const warning = ref(false);
 
 const todoItem = reactive({
   content:'',
@@ -10,10 +12,19 @@ const todoItem = reactive({
 })
 
 const add = () => {
+  if(!todoItem.content){
+    warning.value = true
+    return
+  }
   todoItem.id = Date.now()
   todoPstore.action.add({...todoItem})
+  warning.value = false
   todoItem.content = ''
 }
+
+onMounted(() => {
+  todoPstore.action.getList()
+})
 </script>
 
 <template>
@@ -29,6 +40,7 @@ const add = () => {
 
       <form id="new-todo-form" @submit.prevent="add">
         <h4>What's on your todo list?</h4>
+        <span v-show="warning" class="todo-warning">What's on your todo list?</span>
         <input 
           type="text" 
           name="content" 
@@ -43,9 +55,9 @@ const add = () => {
     <section class="todo-list">
       <h3>TODO LIST</h3>
       <div class="list" id="todo-list">
-        <div v-for="todo in todoPstore.todos" :key="id"  :class="`todo-item ${todo.isComplete && 'done'}`">
+        <div v-for="(todo, index) in todoPstore.todos" :key="id"  :class="`todo-item ${todo.isComplete && 'done'}`">
           <label>
-            <input type="checkbox" v-model="todo.isComplete" />
+            <input @change.prevent="todoPstore.action.update()" type="checkbox" v-model="todo.isComplete" />
             <span :class="`bubble ${
 							todo.isComplete 
 								? 'business' 
@@ -58,7 +70,8 @@ const add = () => {
           </div>
 
           <div class="actions">
-            <button class="delete" @click="">Delete</button>
+            <span class="todo-status">{{todo.isComplete ? 'Done' : 'Pending' }}</span>
+            <button class="delete" @click.prevent="todoPstore.action.delete(index)">Delete</button>
           </div>
         </div>
 
