@@ -1,9 +1,12 @@
 <script setup>
 import {ref,reactive,onMounted} from 'vue';
+import authStore from '../store/authStore';
 import todoStore from '../store/todoStore';
-const todoPstore = todoStore();
 
+const auth = authStore();
+const todoPstore = todoStore();
 const warning = ref(false);
+
 
 const todoItem = reactive({
   content:'',
@@ -31,7 +34,7 @@ onMounted(() => {
   <div>
     <section class="greeting">
       <h2 class="title">
-        What's up, <input type="text" id="name" placeholder="Name here" v-model="name">
+        What's up, {{ auth.user.email }}
       </h2>
     </section>
 
