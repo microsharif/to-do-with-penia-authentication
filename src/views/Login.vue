@@ -1,6 +1,4 @@
 <script setup>
-import {ref, reactive, onMounted} from 'vue'
-import router from '../router/index';
 import { RouterLink } from 'vue-router';
 import authStore from '../store/authStore';
 
