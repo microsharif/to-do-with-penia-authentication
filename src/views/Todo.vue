@@ -34,7 +34,7 @@ onMounted(() => {
   <div>
     <section class="greeting">
       <h2 class="title">
-        What's up, {{ auth.user.email }}
+        What's up, {{ auth.user ? auth.user.email : '' }}
       </h2>
     </section>
 

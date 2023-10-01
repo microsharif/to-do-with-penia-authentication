@@ -28,8 +28,8 @@ const authStore = defineStore('auth', () => {
 
     const register = (registerData) => {
         localStorage.setItem('user', JSON.stringify(registerData))
-        user.email = ''
-        user.password = ''
+        user.value.email = ''
+        user.value.password = ''
         router.push('/todo')      
     };
 
@@ -37,7 +37,8 @@ const authStore = defineStore('auth', () => {
         localStorage.setItem('isAuthenticated',false);
         isAuthenticated.value = false;
         localStorage.setItem('user', null);
-        user.value = null;
+        user.value.email = 'shovon58@yahoo.com';
+        user.value.password = '123456';
         router.push('/login');
     };
 

@@ -6,11 +6,6 @@ import authStore from '../store/authStore';
 
 const auth = authStore();
 
-const loginData = reactive({
-    email: 'shovon58@yahoo.com',
-    password: '123456'
-})
-
 </script>
 
 <template>
@@ -19,14 +14,14 @@ const loginData = reactive({
             <div class="wrapper">
                 <div class="title"><span>Login Form</span></div>
                 <p v-if="auth.warningText" class="login-registration-warning">{{ auth.warningText }}</p>
-                <form @submit.prevent="auth.login(loginData.email, loginData.password)">
+                <form @submit.prevent="auth.login(auth.user.email, auth.user.password)">
                     <div class="row">
                         <i class="fas fa-envelope"></i>
-                        <input type="text" placeholder="Email" v-model="loginData.email" required>
+                        <input type="text" placeholder="Email" v-model="auth.user.email" required>
                     </div>
                     <div class="row">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" v-model="loginData.password" required>
+                        <input type="password" placeholder="Password" v-model="auth.user.password" required>
                     </div>
                     <div class="pass"><a href="#">Please login first to use the Todo App</a></div>
                     <div class="row button">
