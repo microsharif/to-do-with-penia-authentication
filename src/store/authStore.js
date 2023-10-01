@@ -27,9 +27,10 @@ const authStore = defineStore('auth', () => {
     }
 
     const register = (registerData) => {
-        if(localStorage.setItem('user', JSON.stringify(registerData))){
-            return registerData;
-        }
+        localStorage.setItem('user', JSON.stringify(registerData))
+        user.email = ''
+        user.password = ''
+        router.push('/todo')      
     };
 
     const logout = () => {
